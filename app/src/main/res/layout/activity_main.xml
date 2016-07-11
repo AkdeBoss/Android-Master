@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="model"
+            type="com.android.baseproject.model.PojoModel" />
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/custom_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize" />
+
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_header"
+                android:layout_width="@dimen/dp_304"
+                android:layout_height="@dimen/dp_150"
+                android:layout_marginTop="24dp"
+                android:background="@color/color_2d2d2d">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="You are not loged in"
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="50dp"
+                    android:text="We will send you a notification for new offers."
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+</layout>
