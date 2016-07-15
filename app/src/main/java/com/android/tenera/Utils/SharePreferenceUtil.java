@@ -1,11 +1,11 @@
-package com.android.baseproject.Utils;
+package com.android.tenera.Utils;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.android.baseproject.application.MainApplication;
+import com.android.tenera.application.MainApplication;
 
 public class SharePreferenceUtil {
 

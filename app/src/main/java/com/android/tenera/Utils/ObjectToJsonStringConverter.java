@@ -1,8 +1,5 @@
-package com.android.baseproject.Utils;
+package com.android.tenera.Utils;
 
-
-
-import java.io.IOException;
 
 public class ObjectToJsonStringConverter {
     /*public static String convert(Object object) {

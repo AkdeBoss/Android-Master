@@ -1,4 +1,4 @@
-package com.android.baseproject.constants;
+package com.android.tenera.constants;
 
 /**
  * Created by prajwalrai on 11/07/16.

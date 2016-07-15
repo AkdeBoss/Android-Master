@@ -1,6 +1,6 @@
-package com.android.baseproject.network;
+package com.android.tenera.network;
 
-import com.android.baseproject.model.PojoModel;
+import com.android.tenera.model.PojoModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

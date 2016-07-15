@@ -1,4 +1,4 @@
-package com.android.baseproject.fragments;
+package com.android.tenera.fragments;
 
 import android.support.v4.app.Fragment;
 

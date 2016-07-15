@@ -1,4 +1,4 @@
-package com.android.baseproject.network;
+package com.android.tenera.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

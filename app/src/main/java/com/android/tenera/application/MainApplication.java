@@ -1,4 +1,4 @@
-package com.android.baseproject.application;
+package com.android.tenera.application;
 
 import android.app.Application;
 

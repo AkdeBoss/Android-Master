@@ -1,4 +1,4 @@
-package com.android.baseproject.model;
+package com.android.tenera.model;
 
 /**
  * Created by prajwalrai on 07/07/16.

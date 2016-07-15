@@ -1,20 +1,18 @@
-package com.android.baseproject.fragments;
+package com.android.tenera.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.baseproject.R;
+import com.android.tenera.R;
 
 
-public class SecondFragment extends BaseFragment {
+public class ThirdFragment extends BaseFragment {
 
 
-    public SecondFragment() {
+    public ThirdFragment() {
         // Required empty public constructor
     }
 
