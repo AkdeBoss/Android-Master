@@ -11,8 +11,27 @@ import android.widget.TextView;
 import com.android.tenera.R;
 import com.android.tenera.databinding.ActivityMainBinding;
 import com.android.tenera.fragments.HomeFragment;
+import com.shopify.buy.dataprovider.BuyClient;
+import com.shopify.buy.dataprovider.BuyClientFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    // Constants
+    public static final String BUY_CLIENT_SHOP = "meatro.myshopify.com";
+    public static final String BUY_CLIENT_API_KEY = "c3875e253fe6f666d09f9f037802bd0a";
+    public static final String BUY_CLIENT_CHANNEL = "74433223";
+    // Replace BUY_CLIENT_APP_NAME with whatever you like. We suggest
+// using your applications bundle identifier
+    public static final String BUY_CLIENT_APP_NAME = "com.android.tenera";
+    private static BuyClient buyInstance;
+
+    public static BuyClient getBuyInstance() {
+        return buyInstance;
+    }
+
+    public static void setBuyInstance() {
+        MainActivity.buyInstance = newInstance();
+    }
 
     private ActivityMainBinding mBinding;
     private TextView mPreviousSelectedDrawerText;
@@ -27,6 +46,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (savedInstanceState == null) {
             loadHomeFragment();
         }
+        setBuyInstance();
+
+    }
+
+    // Easily access an instance of your Buy Client
+    public static BuyClient newInstance() {
+        if (buyInstance == null) {
+            buyInstance = BuyClientFactory.getBuyClient(BUY_CLIENT_SHOP,
+                    BUY_CLIENT_API_KEY,
+                    BUY_CLIENT_CHANNEL,
+                    BUY_CLIENT_APP_NAME);
+        }
+        return buyInstance;
     }
 
     private void loadHomeFragment() {
