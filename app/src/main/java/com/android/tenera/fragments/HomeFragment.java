@@ -26,8 +26,10 @@ import retrofit.client.Response;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
-    private CartItemBinding mBinding;
+
     private ArrayList<List<Product>> items = new ArrayList<>();
+    private FragmentHomeBinding mBinding;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,7 +46,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.cart_item, container, false);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_home, container, false);
         mBinding.setHandler(this);
         fetchCollections();
         return mBinding.getRoot();

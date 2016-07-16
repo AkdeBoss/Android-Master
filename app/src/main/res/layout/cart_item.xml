@@ -76,7 +76,6 @@
                 android:layout_height="24dp"
                 android:layout_alignBottom="@+id/cart_item_image"
                 android:layout_alignEnd="@+id/cart_item_cost"
-                android:layout_marginRight="@dimen/dp_16"
                 android:background="@drawable/curved_button"
                 android:orientation="horizontal">
 
@@ -123,11 +122,6 @@
                     android:text="+"
                     android:layout_toRightOf="@+id/overlay_quantity"
                     android:textColor="@color/color_ffbf00"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     />
             </RelativeLayout>
 
