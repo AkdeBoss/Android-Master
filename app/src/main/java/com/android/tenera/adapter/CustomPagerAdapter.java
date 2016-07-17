@@ -25,7 +25,8 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        CatalogFragment fragment = CatalogFragment.newInstance(position);
+        CatalogFragment fragment = new CatalogFragment();
+        fragment.setIndex("" + position);
         return fragment;
     }
 

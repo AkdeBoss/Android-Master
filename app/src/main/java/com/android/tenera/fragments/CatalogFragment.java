@@ -30,20 +30,7 @@ import retrofit.client.Response;
 public class CatalogFragment extends Fragment {
 
     private FragmentCatalogBinding mBinding;
-
-    /**
-     * Static factory method that takes an int parameter,
-     * initializes the fragment's arguments, and returns the
-     * new fragment to the client.
-     */
-    public static CatalogFragment newInstance(int index) {
-        CatalogFragment f = new CatalogFragment();
-        Bundle args = new Bundle();
-        args.putInt("index", index);
-        f.setArguments(args);
-        return f;
-    }
-
+    private String index;
 
     @Nullable
     @Override
@@ -51,9 +38,7 @@ public class CatalogFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_catalog, container, true);
         mBinding.catalogList.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        Bundle args = getArguments();
-        int index = args.getInt("index", 0);
-        fetchProductsByCollectionId(""+index);
+        fetchProductsByCollectionId(getIndex());
 
         return mBinding.getRoot();
     }
@@ -79,7 +64,13 @@ public class CatalogFragment extends Fragment {
 
     }
 
+    public String getIndex() {
+        return index;
+    }
 
+    public void setIndex(String index) {
+        this.index = index;
+    }
 
 
 }
