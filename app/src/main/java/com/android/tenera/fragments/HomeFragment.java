@@ -3,13 +3,18 @@ package com.android.tenera.fragments;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.tenera.R;
+import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
+import com.android.tenera.adapter.CustomPagerAdapter;
 import com.android.tenera.databinding.CartItemBinding;
 import com.android.tenera.databinding.FragmentHomeBinding;
 import com.shopify.buy.model.Collection;
@@ -22,14 +27,13 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-
+/**
+ * Created by raghavendra on 11/07/16.
+ */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
-
-
-    private ArrayList<List<Product>> items = new ArrayList<>();
     private FragmentHomeBinding mBinding;
-
+    private PagerAdapter itemAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -48,48 +52,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_home, container, false);
         mBinding.setHandler(this);
-        fetchCollections();
+        itemAdapter = new CustomPagerAdapter(MainActivity.getInstance().getSupportFragmentManager(), MainActivity.getInstance(), Utils.getMenuTitles());
+
+        mBinding.pageContainer.setAdapter(itemAdapter);
+        mBinding.tabContainer.setupWithViewPager(mBinding.pageContainer);
         return mBinding.getRoot();
     }
 
-    private void fetchCollections() {
-        MainActivity.getBuyInstance().getCollections(new Callback<List<Collection>>() {
-            @Override
-            public void success(List<Collection> collections, Response response) {
-                Log.e("", collections.toString());
-                for (int i = 0; i < collections.size(); i++) {
-                    Collection collection = collections.get(i);
-                    fetchProductsByCollectionId(collection.getCollectionId());
-
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
-
-            }
-        });
-    }
-
-    private void fetchProductsByCollectionId(String id) {
-        MainActivity.getBuyInstance().getProducts(1, id, new Callback<List<Product>>() {
-
-            @Override
-            public void success(List<Product> products, Response response) {
-                // Add code to save Products and update display here
-                items.add(products);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
-                // Handle errors here
-            }
-
-        });
-
-    }
 
     @Override
     public void onAttach(Context context) {

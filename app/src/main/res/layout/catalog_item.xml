@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
     <data>
-
         <variable
             name="item"
             type="android.view.View.OnClickListener" />
@@ -54,15 +52,16 @@
                     android:id="@+id/catalog_item_prize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="14dp" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:minWidth="72dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dp_16"
                     android:background="@drawable/curved_button"
+                    android:minWidth="72dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -78,31 +77,30 @@
                     <TextView
                         android:id="@+id/overlay_quantity"
                         android:layout_width="wrap_content"
-                        android:minWidth="26dp"
                         android:layout_height="22dp"
-                        android:paddingRight="@dimen/dp_7"
-                        android:paddingLeft="@dimen/dp_7"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/color_ffbf00"
-                        android:text="1"
                         android:background="#FFFFFF"
+                        android:gravity="center_vertical"
+                        android:minWidth="26dp"
+                        android:paddingLeft="@dimen/dp_7"
+                        android:paddingRight="@dimen/dp_7"
+                        android:text="1"
+                        android:textColor="@color/color_ffbf00"
                         android:textSize="@dimen/sp_16" />
 
                     <TextView
                         android:id="@+id/plus"
                         android:layout_width="23dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
-                        android:text="+"
-                        android:gravity="center"
                         android:background="@color/color_ffbf00"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </RelativeLayout>
 

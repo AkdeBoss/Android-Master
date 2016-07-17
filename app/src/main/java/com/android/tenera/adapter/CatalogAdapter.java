@@ -1,4 +1,4 @@
-package com.android.tenera.apapter;
+package com.android.tenera.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -11,18 +11,19 @@ import android.view.ViewGroup;
 import com.android.tenera.BR;
 import com.android.tenera.R;
 import com.android.tenera.model.PojoModel;
+import com.shopify.buy.model.Product;
 
 import java.util.List;
 
 /**
- * Created by prajwalrai on 16/07/16.
+ * Created by raghavendra on 16/07/16.
  */
 public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater mLayoutInflator;
-    private List<PojoModel> mCatalogList;
+    private List<Product> mCatalogList;
 
-    CatalogAdapter(Context context,List<PojoModel> catalogList){
+    public CatalogAdapter(Context context, List<Product> catalogList){
         mLayoutInflator = LayoutInflater.from(context);
         mCatalogList=catalogList;
     }
@@ -35,13 +36,13 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        PojoModel model=mCatalogList.get(position);
+        Product model = mCatalogList.get(position);
         ViewDataBinding viewDataBindingParent = ((CatalogViewHolder) holder).getViewDataBinding();
         viewDataBindingParent.setVariable(BR.item, model);
         handleOnClick(viewDataBindingParent,model);
     }
 
-    private void handleOnClick(ViewDataBinding viewDataBindingParent, PojoModel model) {
+    private void handleOnClick(ViewDataBinding viewDataBindingParent, Product model) {
         viewDataBindingParent.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,15 +54,15 @@ public class CatalogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mCatalogList.size();
     }
 
 
     public class CatalogViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding mViewDataBinding;
+
         public CatalogViewHolder(ViewDataBinding viewDataBinding) {
             super(viewDataBinding.getRoot());
-
             mViewDataBinding = viewDataBinding;
             mViewDataBinding.executePendingBindings();
         }

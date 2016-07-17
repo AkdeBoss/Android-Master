@@ -4,15 +4,26 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tenera.R;
+import com.android.tenera.Utils.Utils;
 import com.android.tenera.databinding.ActivityMainBinding;
 import com.android.tenera.fragments.HomeFragment;
 import com.shopify.buy.dataprovider.BuyClient;
 import com.shopify.buy.dataprovider.BuyClientFactory;
+import com.shopify.buy.model.Collection;
+import com.shopify.buy.model.Product;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,10 +31,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUY_CLIENT_SHOP = "meatro.myshopify.com";
     public static final String BUY_CLIENT_API_KEY = "c3875e253fe6f666d09f9f037802bd0a";
     public static final String BUY_CLIENT_CHANNEL = "74433223";
-    // Replace BUY_CLIENT_APP_NAME with whatever you like. We suggest
-// using your applications bundle identifier
     public static final String BUY_CLIENT_APP_NAME = "com.android.tenera";
     private static BuyClient buyInstance;
+    private ArrayList<String> tabsList;
+
+
+    public static MainActivity getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(MainActivity instance) {
+        MainActivity.instance = instance;
+    }
+
+    private static MainActivity instance;
+
 
     public static BuyClient getBuyInstance() {
         return buyInstance;
@@ -43,11 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.setHandler(this);
         setSupportActionBar(mBinding.customToolbar);
+        setBuyInstance();
+        setInstance(this);
+        fetchCollections();
         if (savedInstanceState == null) {
             loadHomeFragment();
         }
-        setBuyInstance();
-
     }
 
     // Easily access an instance of your Buy Client
@@ -91,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imageHome.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imageHome.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textHome.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imageHome;
                 mPreviousSelectedDrawerText = mBinding.textHome;
@@ -102,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imageExploreCategories.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imageExploreCategories.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textExploreCategories.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imageExploreCategories;
                 mPreviousSelectedDrawerText = mBinding.textExploreCategories;
@@ -113,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imageCart.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imageCart.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textCart.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imageCart;
                 mPreviousSelectedDrawerText = mBinding.textCart;
@@ -124,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imagePromotionalOffers.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imagePromotionalOffers.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textPromotionalOffer.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imagePromotionalOffers;
                 mPreviousSelectedDrawerText = mBinding.textPromotionalOffer;
@@ -135,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imageIniviteFriend.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imageIniviteFriend.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textInviteFriend.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imageIniviteFriend;
                 mPreviousSelectedDrawerText = mBinding.textInviteFriend;
@@ -146,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imageAbout.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imageAbout.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textAbout.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imageAbout;
                 mPreviousSelectedDrawerText = mBinding.textAbout;
@@ -157,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
                     mPreviousSelectedDrawerImage.setColorFilter(null);
                 }
-                mBinding.imageSupport.setColorFilter(getColor(R.color.color_ffbf00));
+                mBinding.imageSupport.setColorFilter(getResources().getColor(R.color.color_ffbf00));
                 mBinding.textSupport.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mBinding.imageSupport;
                 mPreviousSelectedDrawerText = mBinding.textSupport;
@@ -166,6 +189,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    private void fetchCollections() {
+       getBuyInstance().getCollections(new Callback<List<Collection>>() {
+            @Override
+            public void success(List<Collection> collections, Response response) {
+                Log.e("", collections.toString());
+                for (int i = 0; i < collections.size(); i++) {
+                    Collection collection = collections.get(i);
+                    tabsList.add(collection.getTitle());
+                    fetchProductsByCollectionId(collection.getCollectionId());
+
+                }
+               Utils.setMenuTitles(tabsList);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
+
+            }
+        });
+
+    }
+
+    private void fetchProductsByCollectionId(String id) {
+        MainActivity.getBuyInstance().getProducts(1, id, new Callback<List<Product>>() {
+
+            @Override
+            public void success(List<Product> products, Response response) {
+                // Add code to save Products and update display here
+                Utils.getMenuItems().add(products);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
+                // Handle errors here
+            }
+
+        });
+
+    }
+
+
 
     public boolean isPreviousPresent() {
         if (mPreviousSelectedDrawerImage == null && mPreviousSelectedDrawerText == null) {

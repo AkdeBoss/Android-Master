@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.android.tenera.R;
 import com.android.tenera.databinding.FragmentNoInternetBinding;
 
-
+/**
+ * Created by raghavendra on 11/07/16.
+ */
 public class NoInternetFragment extends DialogFragment implements View.OnClickListener {
 
 

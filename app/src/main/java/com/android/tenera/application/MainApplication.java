@@ -3,7 +3,7 @@ package com.android.tenera.application;
 import android.app.Application;
 
 /**
- * Created by prajwalrai on 08/07/16.
+ * Created by raghavendra on 08/07/16.
  */
 public class MainApplication extends Application {
     private static MainApplication instance;
