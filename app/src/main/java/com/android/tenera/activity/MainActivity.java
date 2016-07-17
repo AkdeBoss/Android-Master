@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUY_CLIENT_CHANNEL = "74433223";
     public static final String BUY_CLIENT_APP_NAME = "com.android.tenera";
     private static BuyClient buyInstance;
-    private ArrayList<String> tabsList;
 
 
     public static MainActivity getInstance() {
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(mBinding.customToolbar);
         setBuyInstance();
         setInstance(this);
-        fetchCollections();
         if (savedInstanceState == null) {
             loadHomeFragment();
         }
@@ -190,47 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void fetchCollections() {
-       getBuyInstance().getCollections(new Callback<List<Collection>>() {
-            @Override
-            public void success(List<Collection> collections, Response response) {
-                Log.e("", collections.toString());
-                for (int i = 0; i < collections.size(); i++) {
-                    Collection collection = collections.get(i);
-                    tabsList.add(collection.getTitle());
-                    fetchProductsByCollectionId(collection.getCollectionId());
 
-                }
-               Utils.setMenuTitles(tabsList);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
-
-            }
-        });
-
-    }
-
-    private void fetchProductsByCollectionId(String id) {
-        MainActivity.getBuyInstance().getProducts(1, id, new Callback<List<Product>>() {
-
-            @Override
-            public void success(List<Product> products, Response response) {
-                // Add code to save Products and update display here
-                Utils.getMenuItems().add(products);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
-                // Handle errors here
-            }
-
-        });
-
-    }
 
 
 

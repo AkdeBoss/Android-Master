@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,13 @@ import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CatalogAdapter;
 import com.android.tenera.databinding.FragmentCatalogBinding;
+import com.shopify.buy.model.Product;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by raghavendra on 11/07/16.
@@ -45,9 +53,33 @@ public class CatalogFragment extends Fragment {
 
         Bundle args = getArguments();
         int index = args.getInt("index", 0);
-        mBinding.catalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), Utils.getMenuItems().get(index)));
-
+        fetchProductsByCollectionId(""+index);
 
         return mBinding.getRoot();
     }
+
+    private void fetchProductsByCollectionId(String id) {
+        MainActivity.getBuyInstance().getProducts(1, id, new Callback<List<Product>>() {
+
+            @Override
+            public void success(List<Product> products, Response response) {
+                // Add code to save Products and update display here
+                Utils.getMenuItems().add(products);
+                mBinding.catalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), products));
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
+                // Handle errors here
+            }
+
+        });
+
+    }
+
+
+
+
 }

@@ -12,19 +12,30 @@ import java.util.UUID;
 public class Utils {
 
     private static ArrayList<List<Product>> menuItems;
+    private static ArrayList<String> collecionTitles;
+    private static ArrayList<String> collectionIds;
 
-    public static ArrayList<String> getMenuTitles() {
-        return menuTitles;
+
+
+    public static ArrayList<String> getCollectionIds() {
+        return collectionIds;
     }
 
-    public static void setMenuTitles(ArrayList<String> menuTitles) {
-        Utils.menuTitles = menuTitles;
+    public static void setCollectionIds(ArrayList<String> collectionIds) {
+        Utils.collectionIds = collectionIds;
     }
 
-    private static ArrayList<String> menuTitles;
+    public static ArrayList<String> getCollecionTitles() {
+        return collecionTitles;
+    }
+
+    public static void setCollecionTitles(ArrayList<String> collecionTitles) {
+        Utils.collecionTitles = collecionTitles;
+    }
+
 
     public static ArrayList<List<Product>> getMenuItems() {
-        if (menuItems == null){
+        if (menuItems == null) {
             menuItems = new ArrayList<>();
         }
         return menuItems;
@@ -33,6 +44,7 @@ public class Utils {
     public void setMenuItems(ArrayList<List<Product>> menuItems) {
         this.menuItems = menuItems;
     }
+
     public static String generateRandomString() {
         String key = UUID.randomUUID().toString();
         key = key.replace("-", "");

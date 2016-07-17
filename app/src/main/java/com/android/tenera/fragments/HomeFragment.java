@@ -3,9 +3,7 @@ package com.android.tenera.fragments;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +13,8 @@ import com.android.tenera.R;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
-import com.android.tenera.databinding.CartItemBinding;
 import com.android.tenera.databinding.FragmentHomeBinding;
 import com.shopify.buy.model.Collection;
-import com.shopify.buy.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +30,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private FragmentHomeBinding mBinding;
     private PagerAdapter itemAdapter;
+    private ArrayList<String> tabsList = new ArrayList<>();
+    private ArrayList<String> collectionIdList = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -52,11 +50,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_home, container, false);
         mBinding.setHandler(this);
-        itemAdapter = new CustomPagerAdapter(MainActivity.getInstance().getSupportFragmentManager(), MainActivity.getInstance(), Utils.getMenuTitles());
-
-        mBinding.pageContainer.setAdapter(itemAdapter);
-        mBinding.tabContainer.setupWithViewPager(mBinding.pageContainer);
+        fetchCollections();
         return mBinding.getRoot();
+    }
+
+    private void fetchCollections() {
+        MainActivity.getBuyInstance().getCollections(new Callback<List<Collection>>() {
+            @Override
+            public void success(List<Collection> collections, Response response) {
+                Log.e("", collections.toString());
+                for (int i = 0; i < collections.size(); i++) {
+                    Collection collection = collections.get(i);
+                    tabsList.add(collection.getTitle());
+                    collectionIdList.add(collection.getCollectionId());
+                }
+                Utils.setCollecionTitles(tabsList);
+                Utils.setCollectionIds(collectionIdList);
+                itemAdapter = new CustomPagerAdapter(MainActivity.getInstance().getSupportFragmentManager(), MainActivity.getInstance(), Utils.getCollecionTitles());
+
+                mBinding.pageContainer.setAdapter(itemAdapter);
+                mBinding.tabContainer.setupWithViewPager(mBinding.pageContainer);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
+
+            }
+        });
+
     }
 
 
