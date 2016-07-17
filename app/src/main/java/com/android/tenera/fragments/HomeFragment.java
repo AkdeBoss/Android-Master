@@ -48,9 +48,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_home, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         mBinding.setHandler(this);
+
         fetchCollections();
+
+
         return mBinding.getRoot();
     }
 
@@ -66,10 +69,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 Utils.setCollecionTitles(tabsList);
                 Utils.setCollectionIds(collectionIdList);
-                itemAdapter = new CustomPagerAdapter(MainActivity.getInstance().getSupportFragmentManager(), MainActivity.getInstance(), Utils.getCollecionTitles());
+
+                itemAdapter = new CustomPagerAdapter(getChildFragmentManager(), MainActivity.getInstance(), tabsList);
 
                 mBinding.pageContainer.setAdapter(itemAdapter);
                 mBinding.tabContainer.setupWithViewPager(mBinding.pageContainer);
+                mBinding.pageContainer.setOffscreenPageLimit(Utils.getCollecionTitles().size());
             }
 
             @Override
@@ -89,7 +94,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        NoInternetFragment dialogFragment = new NoInternetFragment();
-        dialogFragment.show(getActivity().getSupportFragmentManager(), null);
+
     }
 }

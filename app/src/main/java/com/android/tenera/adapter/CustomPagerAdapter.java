@@ -1,7 +1,6 @@
 package com.android.tenera.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
@@ -24,9 +23,9 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public CatalogFragment getItem(int position) {
         CatalogFragment fragment = new CatalogFragment();
-        fragment.setIndex("" + position);
+        fragment.setIndex(position);
         return fragment;
     }
 

@@ -22,18 +22,18 @@
                 android:id="@+id/btn_side_pane"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
                 android:src="@android:drawable/ic_dialog_dialer" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="35dp"
                 android:layout_toRightOf="@+id/btn_side_pane"
                 android:text="Home"
                 android:textColor="@android:color/white"
-                android:layout_marginLeft="35dp"
-                android:layout_centerVertical="true"
                 android:textSize="24sp" />
         </RelativeLayout>
 
@@ -53,7 +53,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/page_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_container" />
 
     </RelativeLayout>
 </layout>

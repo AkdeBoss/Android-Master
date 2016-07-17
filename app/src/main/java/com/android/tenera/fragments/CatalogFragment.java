@@ -1,5 +1,6 @@
 package com.android.tenera.fragments;
 
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.tenera.R;
 import com.android.tenera.Utils.Utils;
@@ -30,15 +32,15 @@ import retrofit.client.Response;
 public class CatalogFragment extends Fragment {
 
     private FragmentCatalogBinding mBinding;
-    private String index;
+    private int index;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_catalog, container, true);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_catalog, container, false);
         mBinding.catalogList.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        fetchProductsByCollectionId(getIndex());
+        fetchProductsByCollectionId(Utils.getCollectionIds().get(getIndex()));
 
         return mBinding.getRoot();
     }
@@ -64,11 +66,13 @@ public class CatalogFragment extends Fragment {
 
     }
 
-    public String getIndex() {
+
+
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(String index) {
+    public void setIndex(int index) {
         this.index = index;
     }
 
