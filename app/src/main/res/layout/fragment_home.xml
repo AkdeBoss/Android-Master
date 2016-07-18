@@ -56,5 +56,54 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/tab_container" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="#25b968">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_toStartOf="@+id/left_arrow"
+                android:text="View cart"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/sp_16" />
+
+            <ImageView
+                android:id="@+id/left_arrow"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:background="#10a151"
+                android:padding="@dimen/dp_16"
+                android:src="@drawable/leftarrow"
+                app:font="@{`Roboto-Medium.ttf`}" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/carticon" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:padding="3dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/circular_backgroung"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>
