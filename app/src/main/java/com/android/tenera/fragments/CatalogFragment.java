@@ -37,9 +37,7 @@ public class CatalogFragment extends Fragment {
 
         mCatalogList=(RecyclerView)view.findViewById(R.id.catalog_list);
         mCatalogList.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
         fetchProductsByCollectionId(Utils.getCollectionIds().get(getIndex()));
-
         return view;
     }
 

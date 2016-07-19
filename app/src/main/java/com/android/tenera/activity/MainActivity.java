@@ -1,7 +1,9 @@
 package com.android.tenera.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUY_CLIENT_APP_NAME = "com.android.tenera";
     private static BuyClient buyInstance;
     private Toolbar mToolBar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     private ImageView mImageHome;
     private TextView mTextHome;
     private ImageView mImageExploreCategories;
@@ -73,27 +78,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mToolBar = (Toolbar) findViewById(R.id.custom_toolbar);
         setSupportActionBar(mToolBar);
-        mImageHome = (ImageView) findViewById(R.id.image_home);
-        mTextHome = (TextView) findViewById(R.id.text_home);
-        mImageExploreCategories = (ImageView) findViewById(R.id.image_explore_categories);
-        mTextExploreCategories = (TextView) findViewById(R.id.text_explore_categories);
-        mImageCart = (ImageView) findViewById(R.id.image_cart);
-        mTextCart = (TextView) findViewById(R.id.text_cart);
-        mImagePromotionalOffer = (ImageView) findViewById(R.id.image_promotional_offers);
-        mTextPromotionalOffer = (TextView) findViewById(R.id.text_promotional_offer);
-        mImageInviteFriend = (ImageView) findViewById(R.id.image_inivite_friend);
-        mTextInviteFriend = (TextView) findViewById(R.id.text_invite_friend);
-        mImageAbout = (ImageView) findViewById(R.id.image_about);
-        mTextAbout = (TextView) findViewById(R.id.text_about);
-        mImageSupport = (ImageView) findViewById(R.id.image_support);
-        mTextSupport = (TextView) findViewById(R.id.text_support);
-        mNavHome = (ImageView) findViewById(R.id.nav_home);
-        mNavExploreCategories = (ImageView) findViewById(R.id.nav_explore_categories);
-        mNavCart = (ImageView) findViewById(R.id.nav_cart);
-        mNavPromotionalOffer = (ImageView) findViewById(R.id.nav_promotional_offer);
-        mNavInviteFriend = (ImageView) findViewById(R.id.nav_invite_friend);
-        mNavAbout = (ImageView) findViewById(R.id.nav_about);
-        mNavSupport = (ImageView) findViewById(R.id.nav_support);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+
+        mImageHome = (ImageView) navigationView.findViewById(R.id.image_home);
+        mTextHome = (TextView) navigationView.findViewById(R.id.text_home);
+        mImageExploreCategories = (ImageView) navigationView.findViewById(R.id.image_explore_categories);
+        mTextExploreCategories = (TextView) navigationView.findViewById(R.id.text_explore_categories);
+        mImageCart = (ImageView) navigationView.findViewById(R.id.image_cart);
+        mTextCart = (TextView) navigationView.findViewById(R.id.text_cart);
+        mImagePromotionalOffer = (ImageView) navigationView.findViewById(R.id.image_promotional_offers);
+        mTextPromotionalOffer = (TextView) navigationView.findViewById(R.id.text_promotional_offer);
+        mImageInviteFriend = (ImageView) navigationView.findViewById(R.id.image_inivite_friend);
+        mTextInviteFriend = (TextView) navigationView.findViewById(R.id.text_invite_friend);
+        mImageAbout = (ImageView) navigationView.findViewById(R.id.image_about);
+        mTextAbout = (TextView) navigationView.findViewById(R.id.text_about);
+        mImageSupport = (ImageView) navigationView.findViewById(R.id.image_support);
+        mTextSupport = (TextView) navigationView.findViewById(R.id.text_support);
+        mNavHome = (ImageView) navigationView.findViewById(R.id.nav_home);
+        mNavExploreCategories = (ImageView) navigationView.findViewById(R.id.nav_explore_categories);
+        mNavCart = (ImageView) navigationView.findViewById(R.id.nav_cart);
+        mNavPromotionalOffer = (ImageView) navigationView.findViewById(R.id.nav_promotional_offer);
+        mNavInviteFriend = (ImageView) navigationView.findViewById(R.id.nav_invite_friend);
+        mNavAbout = (ImageView) navigationView.findViewById(R.id.nav_about);
+        mNavSupport = (ImageView) navigationView.findViewById(R.id.nav_support);
 
         mNavHome.setOnClickListener(this);
         mNavExploreCategories.setOnClickListener(this);

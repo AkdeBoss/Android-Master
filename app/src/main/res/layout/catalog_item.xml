@@ -1,59 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="180dp"
+    android:layout_height="256dp"
+    android:layout_margin="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/catalog_item_image"
-            android:layout_width="match_parent"
-            android:layout_height="162dp" />
+            android:layout_width="162dp"
+            android:layout_height="162dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logoplaceholder" />
 
         <TextView
             android:id="@+id/catalog_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
+            android:layout_below="@+id/catalog_item_image"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:text="Chicken - Uncut Skin Boneless"
             android:textColor="@color/color_8a2d2d2d"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_7" />
 
-        <TextView
-            android:id="@+id/catalog_item_gross_weight"
+        <LinearLayout
+            android:id="@+id/gross_weight_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginTop="8dp"
-            android:alpha="0.7"
-            android:textColor="@color/color_2d2d2d" />
+            android:layout_marginLeft="@dimen/dp_10"
+            android:orientation="horizontal"
+            android:layout_below="@+id/catalog_item_name">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gross Weight:"
+                android:textColor="@color/color_2d2d2d"
+                android:textSize="@dimen/dp_12" />
+
+            <TextView
+                android:id="@+id/catalog_item_gross_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500g"
+                android:textColor="@color/color_2d2d2d"
+                android:textSize="@dimen/dp_12" />
+        </LinearLayout>
+
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="138dp"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/color_f5f5f5" />
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@color/color_f5f5f5"
+            android:layout_below="@+id/gross_weight_layout"
+            android:layout_marginTop="@dimen/spacing_4dp"
+            android:layout_centerHorizontal="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/spacing_4dp"
+            android:layout_marginRight="@dimen/dp_12">
 
             <TextView
                 android:id="@+id/catalog_item_prize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="14dp" />
+                android:layout_centerVertical="true"
+                android:layout_marginTop="14dp"
+                android:text="Rs.400" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp_16"
+                android:layout_centerVertical="true"
                 android:background="@drawable/curved_button"
                 android:minWidth="72dp"
                 android:orientation="horizontal">
@@ -98,20 +130,18 @@
             <TextView
                 android:id="@+id/catalog_item_add"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp_16"
+                android:layout_centerVertical="true"
                 android:background="@color/color_ffbf00"
                 android:gravity="center"
                 android:minHeight="24dp"
                 android:minWidth="72dp"
-                android:padding="7dp"
                 android:text="ADD"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:textStyle="bold" />
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -1,6 +1,7 @@
 package com.android.tenera.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.tenera.R;
+import com.android.tenera.Utils.BadgedImageView;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
@@ -33,6 +35,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ArrayList<String> collectionIdList = new ArrayList<>();
     private ViewPager mPagerContainer;
     private TabLayout mTabContainer;
+    private BadgedImageView cartIcon;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -52,6 +55,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mPagerContainer = (ViewPager) view.findViewById(R.id.page_container);
         mTabContainer = (TabLayout) view.findViewById(R.id.tab_container);
+        cartIcon = (BadgedImageView) view.findViewById(R.id.cart_icon);
+        cartIcon.setBadge("1", Color.parseColor("#ffbf00"));
         fetchCollections();
 
 
