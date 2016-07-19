@@ -1,7 +1,5 @@
 package com.android.tenera.fragments;
 
-import android.databinding.BindingAdapter;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,13 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.android.tenera.R;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CatalogAdapter;
-import com.android.tenera.databinding.FragmentCatalogBinding;
 import com.shopify.buy.model.Product;
 
 import java.util.List;
@@ -31,18 +27,20 @@ import retrofit.client.Response;
  */
 public class CatalogFragment extends Fragment {
 
-    private FragmentCatalogBinding mBinding;
     private int index;
+    private RecyclerView mCatalogList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_catalog, container, false);
-        mBinding.catalogList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        View view =inflater.inflate(R.layout.fragment_catalog, container, false);
+
+        mCatalogList=(RecyclerView)view.findViewById(R.id.catalog_list);
+        mCatalogList.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         fetchProductsByCollectionId(Utils.getCollectionIds().get(getIndex()));
 
-        return mBinding.getRoot();
+        return view;
     }
 
     private void fetchProductsByCollectionId(String id) {
@@ -52,7 +50,7 @@ public class CatalogFragment extends Fragment {
             public void success(List<Product> products, Response response) {
                 // Add code to save Products and update display here
                 Utils.getMenuItems().add(products);
-                mBinding.catalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), products));
+                mCatalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), products));
 
             }
 

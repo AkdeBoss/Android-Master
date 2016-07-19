@@ -58,13 +58,6 @@
         <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.3.0_937ff3ba6c982fd62721a5fe3a7d6d4419ccaf5c/classes.dex" />
     </item>
     <item
-        jar="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/exploded-aar/com.android.databinding/adapters/1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="3cae403175958af8baa00bed0bd6e04187d69415">
-        <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.databinding-adapters-1.1_c4eb0b113c4cf05dbc7cfe132663700c6cd98ad2/classes.dex" />
-    </item>
-    <item
         jar="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/jars/classes.jar"
         jumboMode="true"
         revision="23.0.3"
@@ -75,7 +68,7 @@
         jar="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="715f18ecf056d602d0b20625ad7b34a8c378feca">
+        sha1="693e623900a85066de6acb2373c7707874e779ff">
         <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_2ac1ca60503de671885b62ed1e87b48cec234df8/classes.dex" />
     </item>
     <item
@@ -107,17 +100,10 @@
         <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-2.4.0_7c7b967af2b7f74975c8315f4641cbae458060b4/classes.dex" />
     </item>
     <item
-        jar="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/exploded-aar/com.android.databinding/library/1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="d985cdf99de8a63824b52d8a8efc309f9e5fbf01">
-        <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.databinding-library-1.1_79ee23b5a57964ab0d09bdf01ff333fa82fdf69f/classes.dex" />
-    </item>
-    <item
         jar="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="a63628961fa5c85af442e5f3ddc7981476834b36">
+        sha1="db9b0c4484063d3ed938994f5c7b3805108fed73">
         <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6f6dabd51c10daed02023cd9fe3f8ac83351f446/classes.dex" />
     </item>
     <item
@@ -147,13 +133,6 @@
         revision="23.0.3"
         sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
         <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_dec7d5def0fe146a8757b2f7168a621f340e1fed/classes.dex" />
-    </item>
-    <item
-        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/android/databinding/baseLibrary/2.1.2/baseLibrary-2.1.2.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="357d1307d303c4771283372a53fd7c45e0c19c89">
-        <dex dex="/Users/prajwalrai/Desktop/Android-Master/app/build/intermediates/transforms/dex/debug/folders/1000/10/baseLibrary-2.1.2_e874a79ced6bda04e46ee4b599aee642f2b026c5/classes.dex" />
     </item>
     <item
         jar="/Users/prajwalrai/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"

@@ -1,9 +1,10 @@
 package com.android.tenera.fragments;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import com.android.tenera.R;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
-import com.android.tenera.databinding.FragmentHomeBinding;
 import com.shopify.buy.model.Collection;
 
 import java.util.ArrayList;
@@ -28,10 +28,11 @@ import retrofit.client.Response;
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
-    private FragmentHomeBinding mBinding;
     private PagerAdapter itemAdapter;
     private ArrayList<String> tabsList = new ArrayList<>();
     private ArrayList<String> collectionIdList = new ArrayList<>();
+    private ViewPager mPagerContainer;
+    private TabLayout mTabContainer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -48,13 +49,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        mBinding.setHandler(this);
-
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mPagerContainer = (ViewPager) view.findViewById(R.id.page_container);
+        mTabContainer = (TabLayout) view.findViewById(R.id.tab_container);
         fetchCollections();
 
 
-        return mBinding.getRoot();
+        return view;
     }
 
     private void fetchCollections() {
@@ -72,9 +73,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
                 itemAdapter = new CustomPagerAdapter(getChildFragmentManager(), MainActivity.getInstance(), tabsList);
 
-                mBinding.pageContainer.setAdapter(itemAdapter);
-                mBinding.tabContainer.setupWithViewPager(mBinding.pageContainer);
-                mBinding.pageContainer.setOffscreenPageLimit(Utils.getCollecionTitles().size());
+                mPagerContainer.setAdapter(itemAdapter);
+                mTabContainer.setupWithViewPager(mPagerContainer);
+                mPagerContainer.setOffscreenPageLimit(Utils.getCollecionTitles().size());
             }
 
             @Override

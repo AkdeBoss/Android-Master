@@ -1,29 +1,17 @@
 package com.android.tenera.activity;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tenera.R;
-import com.android.tenera.Utils.Utils;
-import com.android.tenera.databinding.ActivityMainBinding;
 import com.android.tenera.fragments.HomeFragment;
 import com.shopify.buy.dataprovider.BuyClient;
 import com.shopify.buy.dataprovider.BuyClientFactory;
-import com.shopify.buy.model.Collection;
-import com.shopify.buy.model.Product;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +21,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUY_CLIENT_CHANNEL = "74433223";
     public static final String BUY_CLIENT_APP_NAME = "com.android.tenera";
     private static BuyClient buyInstance;
+    private Toolbar mToolBar;
+    private ImageView mImageHome;
+    private TextView mTextHome;
+    private ImageView mImageExploreCategories;
+    private TextView mTextExploreCategories;
+    private ImageView mImageCart;
+    private TextView mTextCart;
+    private ImageView mImagePromotionalOffer;
+    private TextView mTextPromotionalOffer;
+    private ImageView mImageInviteFriend;
+    private TextView mTextInviteFriend;
+    private ImageView mImageAbout;
+    private TextView mTextAbout;
+    private ImageView mImageSupport;
+    private TextView mTextSupport;
+    private ImageView mNavHome;
+    private ImageView mNavExploreCategories;
+    private ImageView mNavCart;
+    private ImageView mNavPromotionalOffer;
+    private ImageView mNavInviteFriend;
+    private ImageView mNavAbout;
+    private ImageView mNavSupport;
 
 
     public static MainActivity getInstance() {
@@ -54,16 +64,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MainActivity.buyInstance = newInstance();
     }
 
-    private ActivityMainBinding mBinding;
     private TextView mPreviousSelectedDrawerText;
     private ImageView mPreviousSelectedDrawerImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mBinding.setHandler(this);
-        setSupportActionBar(mBinding.customToolbar);
+        setContentView(R.layout.activity_main);
+        mToolBar = (Toolbar) findViewById(R.id.custom_toolbar);
+        setSupportActionBar(mToolBar);
+        mImageHome = (ImageView) findViewById(R.id.image_home);
+        mTextHome = (TextView) findViewById(R.id.text_home);
+        mImageExploreCategories = (ImageView) findViewById(R.id.image_explore_categories);
+        mTextExploreCategories = (TextView) findViewById(R.id.text_explore_categories);
+        mImageCart = (ImageView) findViewById(R.id.image_cart);
+        mTextCart = (TextView) findViewById(R.id.text_cart);
+        mImagePromotionalOffer = (ImageView) findViewById(R.id.image_promotional_offers);
+        mTextPromotionalOffer = (TextView) findViewById(R.id.text_promotional_offer);
+        mImageInviteFriend = (ImageView) findViewById(R.id.image_inivite_friend);
+        mTextInviteFriend = (TextView) findViewById(R.id.text_invite_friend);
+        mImageAbout = (ImageView) findViewById(R.id.image_about);
+        mTextAbout = (TextView) findViewById(R.id.text_about);
+        mImageSupport = (ImageView) findViewById(R.id.image_support);
+        mTextSupport = (TextView) findViewById(R.id.text_support);
+        mNavHome = (ImageView) findViewById(R.id.nav_home);
+        mNavExploreCategories = (ImageView) findViewById(R.id.nav_explore_categories);
+        mNavCart = (ImageView) findViewById(R.id.nav_cart);
+        mNavPromotionalOffer = (ImageView) findViewById(R.id.nav_promotional_offer);
+        mNavInviteFriend = (ImageView) findViewById(R.id.nav_invite_friend);
+        mNavAbout = (ImageView) findViewById(R.id.nav_about);
+        mNavSupport = (ImageView) findViewById(R.id.nav_support);
+
+        mNavHome.setOnClickListener(this);
+        mNavExploreCategories.setOnClickListener(this);
+        mNavCart.setOnClickListener(this);
+        mNavPromotionalOffer.setOnClickListener(this);
+        mNavInviteFriend.setOnClickListener(this);
+        mNavAbout.setOnClickListener(this);
+        mNavSupport.setOnClickListener(this);
+
         setBuyInstance();
         setInstance(this);
         if (savedInstanceState == null) {
@@ -83,23 +122,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadHomeFragment() {
-        getSupportFragmentManager().beginTransaction().add(mBinding.container.getId(), new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFragment()).commit();
     }
 
     private void addFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().add(mBinding.container.getId(), fragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
     }
 
     private void addFragmentWithBackStack(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().add(mBinding.container.getId(), fragment).addToBackStack(fragment.getTag()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(fragment.getTag()).commit();
     }
 
     private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(mBinding.container.getId(), fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
     private void replaceFragmentWithBackStack(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(mBinding.container.getId(), fragment).addToBackStack(fragment.getTag()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.getTag()).commit();
     }
 
 
@@ -110,87 +149,83 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imageHome.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textHome.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imageHome;
-                mPreviousSelectedDrawerText = mBinding.textHome;
+                mImageHome.setSelected(true);
+                mTextHome.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImageHome;
+                mPreviousSelectedDrawerText = mTextHome;
                 break;
             case R.id.nav_explore_categories:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imageExploreCategories.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textExploreCategories.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imageExploreCategories;
-                mPreviousSelectedDrawerText = mBinding.textExploreCategories;
+                mImageExploreCategories.setSelected(true);
+                mTextExploreCategories.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImageExploreCategories;
+                mPreviousSelectedDrawerText = mTextExploreCategories;
                 break;
             case R.id.nav_cart:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imageCart.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textCart.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imageCart;
-                mPreviousSelectedDrawerText = mBinding.textCart;
+                mImageCart.setSelected(true);
+                mTextCart.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImageCart;
+                mPreviousSelectedDrawerText = mTextCart;
                 break;
             case R.id.nav_promotional_offer:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imagePromotionalOffers.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textPromotionalOffer.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imagePromotionalOffers;
-                mPreviousSelectedDrawerText = mBinding.textPromotionalOffer;
+                mImagePromotionalOffer.setSelected(true);
+                mTextPromotionalOffer.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImagePromotionalOffer;
+                mPreviousSelectedDrawerText = mTextPromotionalOffer;
                 break;
             case R.id.nav_invite_friend:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imageIniviteFriend.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textInviteFriend.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imageIniviteFriend;
-                mPreviousSelectedDrawerText = mBinding.textInviteFriend;
+                mImageInviteFriend.setSelected(true);
+                mTextInviteFriend.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImageInviteFriend;
+                mPreviousSelectedDrawerText = mTextInviteFriend;
                 break;
             case R.id.nav_about:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imageAbout.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textAbout.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imageAbout;
-                mPreviousSelectedDrawerText = mBinding.textAbout;
+                mImageAbout.setSelected(true);
+                mTextAbout.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImageAbout;
+                mPreviousSelectedDrawerText = mTextAbout;
                 break;
             case R.id.nav_support:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
-                    mPreviousSelectedDrawerImage.setColorFilter(null);
+                    mPreviousSelectedDrawerImage.setSelected(false);
                 }
-                mBinding.imageSupport.setColorFilter(getResources().getColor(R.color.color_ffbf00));
-                mBinding.textSupport.setTextColor(getResources().getColor(R.color.color_ffbf00));
-                mPreviousSelectedDrawerImage = mBinding.imageSupport;
-                mPreviousSelectedDrawerText = mBinding.textSupport;
+                mImageSupport.setSelected(true);
+                mTextSupport.setTextColor(getResources().getColor(R.color.color_ffbf00));
+                mPreviousSelectedDrawerImage = mImageSupport;
+                mPreviousSelectedDrawerText = mTextSupport;
                 break;
             default:
                 break;
         }
     }
-
-
-
-
 
     public boolean isPreviousPresent() {
         if (mPreviousSelectedDrawerImage == null && mPreviousSelectedDrawerText == null) {

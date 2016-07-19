@@ -1,109 +1,99 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/colorPrimary">
 
-        <variable
-            name="handler"
-            type="android.view.View.OnClickListener" />
-    </data>
+        <ImageView
+            android:id="@+id/btn_side_pane"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@android:drawable/ic_dialog_dialer" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@+id/btn_side_pane"
+            android:text="Home"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:background="#ffffff"
+        android:elevation="5dp"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#ffbf00"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="#de2d2d2d"
+        app:tabTextColor="#992d2d2d" />
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/page_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_container" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="#25b968">
 
-        <RelativeLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:background="@color/colorPrimary">
-
-            <ImageView
-                android:id="@+id/btn_side_pane"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:src="@android:drawable/ic_dialog_dialer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="35dp"
-                android:layout_toRightOf="@+id/btn_side_pane"
-                android:text="Home"
-                android:textColor="@android:color/white"
-                android:textSize="24sp" />
-        </RelativeLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_container"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header"
-            android:background="#ffffff"
-            android:elevation="5dp"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#ffbf00"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="#de2d2d2d"
-            app:tabTextColor="#992d2d2d" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toStartOf="@+id/left_arrow"
+            android:text="View cart"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp_16" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/page_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tab_container" />
+        <ImageView
+            android:id="@+id/left_arrow"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:background="#10a151"
+            android:padding="@dimen/dp_16"
+            android:src="@drawable/leftarrow" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:background="#25b968">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:layout_toStartOf="@+id/left_arrow"
-                android:text="View cart"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/sp_16" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp">
 
             <ImageView
-                android:id="@+id/left_arrow"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentRight="true"
-                android:background="#10a151"
-                android:padding="@dimen/dp_16"
-                android:src="@drawable/leftarrow"
-                app:font="@{`Roboto-Medium.ttf`}" />
-
-            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp">
+                android:src="@drawable/carticon" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/carticon" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:padding="3dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/circular_backgroung"
-                    android:textSize="12sp"/>
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/circular_backgroung"
+                android:padding="3dp"
+                android:text="2"
+                android:textSize="12sp" />
         </RelativeLayout>
     </RelativeLayout>
-</layout>
+</RelativeLayout>
