@@ -1,5 +1,6 @@
 package com.android.tenera.Utils;
 
+import com.android.tenera.model.ProductDTO;
 import com.shopify.buy.model.Product;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.UUID;
  */
 public class Utils {
 
-    private static ArrayList<List<Product>> menuItems;
+    private static ArrayList<List<ProductDTO>> menuItems;
     private static ArrayList<String> collecionTitles;
     private static ArrayList<String> collectionIds;
 
@@ -34,21 +35,11 @@ public class Utils {
     }
 
 
-    public static ArrayList<List<Product>> getMenuItems() {
+    public static ArrayList<List<ProductDTO>> getMenuItems() {
         if (menuItems == null) {
             menuItems = new ArrayList<>();
         }
         return menuItems;
     }
 
-    public void setMenuItems(ArrayList<List<Product>> menuItems) {
-        this.menuItems = menuItems;
-    }
-
-    public static String generateRandomString() {
-        String key = UUID.randomUUID().toString();
-        key = key.replace("-", "");
-        // Logger.error("Secret Key: " + key);
-        return key;
-    }
 }

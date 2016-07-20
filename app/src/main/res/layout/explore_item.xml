@@ -30,7 +30,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/dp_18"
                 android:layout_toRightOf="@id/explore_item_image"
-                android:textColor="@color/color_8a2d2d2d"
+                android:textColor="@color/color_de2d2d2d"
                 android:id="@+id/explore_item_title" />
 
             <TextView

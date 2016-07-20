@@ -8,25 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tenera.R;
+import com.android.tenera.fragments.CartFragment;
 import com.android.tenera.fragments.HomeFragment;
 import com.shopify.buy.dataprovider.BuyClient;
 import com.shopify.buy.dataprovider.BuyClientFactory;
+import com.shopify.buy.model.Cart;
+import com.shopify.buy.model.Checkout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // Constants
-    public static final String BUY_CLIENT_SHOP = "meatro.myshopify.com";
-    public static final String BUY_CLIENT_API_KEY = "c3875e253fe6f666d09f9f037802bd0a";
-    public static final String BUY_CLIENT_CHANNEL = "74433223";
-    public static final String BUY_CLIENT_APP_NAME = "com.android.tenera";
-    private static BuyClient buyInstance;
     private Toolbar mToolBar;
-    private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
     private ImageView mImageHome;
     private TextView mTextHome;
     private ImageView mImageExploreCategories;
@@ -48,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mNavInviteFriend;
     private ImageView mNavAbout;
     private ImageView mNavSupport;
+    private RelativeLayout progressLayout;
 
 
     public static MainActivity getInstance() {
@@ -61,14 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static MainActivity instance;
 
 
-    public static BuyClient getBuyInstance() {
-        return buyInstance;
-    }
-
-    public static void setBuyInstance() {
-        MainActivity.buyInstance = newInstance();
-    }
-
     private TextView mPreviousSelectedDrawerText;
     private ImageView mPreviousSelectedDrawerImage;
 
@@ -80,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(mToolBar);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-
+        progressLayout = (RelativeLayout) findViewById(R.id.progressLayout);
         mImageHome = (ImageView) navigationView.findViewById(R.id.image_home);
         mTextHome = (TextView) navigationView.findViewById(R.id.text_home);
         mImageExploreCategories = (ImageView) navigationView.findViewById(R.id.image_explore_categories);
@@ -110,23 +99,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNavInviteFriend.setOnClickListener(this);
         mNavAbout.setOnClickListener(this);
         mNavSupport.setOnClickListener(this);
-
-        setBuyInstance();
         setInstance(this);
         if (savedInstanceState == null) {
             loadHomeFragment();
         }
+
     }
 
-    // Easily access an instance of your Buy Client
-    public static BuyClient newInstance() {
-        if (buyInstance == null) {
-            buyInstance = BuyClientFactory.getBuyClient(BUY_CLIENT_SHOP,
-                    BUY_CLIENT_API_KEY,
-                    BUY_CLIENT_CHANNEL,
-                    BUY_CLIENT_APP_NAME);
-        }
-        return buyInstance;
+    public void showLoader() {
+        progressLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoader() {
+        progressLayout.setVisibility(View.GONE);
     }
 
     private void loadHomeFragment() {
@@ -156,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_home:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImageHome.setSelected(true);
@@ -165,9 +150,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPreviousSelectedDrawerText = mTextHome;
                 break;
             case R.id.nav_explore_categories:
-                loadHomeFragment();
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImageExploreCategories.setSelected(true);
@@ -176,9 +160,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPreviousSelectedDrawerText = mTextExploreCategories;
                 break;
             case R.id.nav_cart:
-                loadHomeFragment();
+                CartFragment cartFragment = new CartFragment();
+                replaceFragment(cartFragment);
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImageCart.setSelected(true);
@@ -189,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_promotional_offer:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImagePromotionalOffer.setSelected(true);
@@ -200,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_invite_friend:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImageInviteFriend.setSelected(true);
@@ -211,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_about:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImageAbout.setSelected(true);
@@ -222,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_support:
                 loadHomeFragment();
                 if (isPreviousPresent()) {
-                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_8a2d2d2d));
+                    mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
                 }
                 mImageSupport.setSelected(true);
