@@ -75,17 +75,51 @@
             android:src="@drawable/leftarrow" />
 
 
-        <com.android.tenera.Utils.BadgedImageView
-            android:id="@+id/cart_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_alignParentLeft="true"
-            app:badgeColor="#ffbf00"
-            app:badgeGravity="right"
-            app:badgeText="12"
-            android:src="@drawable/carticon" />
+        <RelativeLayout
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center">
+
+            <!-- Menu Item Image -->
+            <ImageView
+                android:id="@+id/action_bar_cart_qty_img"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="12dp"
+                android:clickable="true"
+                android:paddingTop="4dp"
+                android:src="@drawable/carticon" />
+
+            <!-- Badge Count -->
+
+            <FrameLayout
+                android:id="@+id/cart_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_cart_qty_bubble"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:background="@drawable/circular_backgroung"
+                    android:padding="2dp" />
+
+                <TextView
+                    android:id="@+id/cart_item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:padding="2dp"
+                    android:text='10'
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_10"
+                    android:layout_marginTop="2dp" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
 
 
     </RelativeLayout>

@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import com.android.tenera.R;
 import com.android.tenera.fragments.CatalogFragment;
+import com.android.tenera.model.MessageEvent;
 import com.android.tenera.model.ProductDTO;
 import com.android.tenera.network.PicassoHelper;
 import com.shopify.buy.model.Product;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
     }
 
     @Override
-    public void onBindViewHolder(CatalogViewHolder holder, int position) {
+    public void onBindViewHolder(CatalogViewHolder holder, final int position) {
         final ProductDTO model = mCatalogList.get(position);
         holder.itemName.setText(model.getTitle());
         PicassoHelper.getPicassoInstance(mContext).load(model.getImage()).
@@ -66,7 +69,9 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
             public void onClick(View v) {
                 catalogFragment.addCartItem(model.getVariant(), model.getQuantity() + 1);
                 model.setQuantity(model.getQuantity() + 1);
-                notifyDataSetChanged();
+                notifyItemChanged(position);
+                EventBus.getDefault().post(new MessageEvent(true));
+
 
             }
         });
@@ -76,7 +81,8 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
             public void onClick(View v) {
                 catalogFragment.addCartItem(model.getVariant(), model.getQuantity() + 1);
                 model.setQuantity(model.getQuantity() + 1);
-                notifyDataSetChanged();
+                notifyItemChanged(position);
+                EventBus.getDefault().post(new MessageEvent(true));
 
             }
         });
@@ -85,7 +91,8 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
             public void onClick(View v) {
                 catalogFragment.addCartItem(model.getVariant(), model.getQuantity() - 1);
                 model.setQuantity(model.getQuantity() - 1);
-                notifyDataSetChanged();
+                notifyItemChanged(position);
+                EventBus.getDefault().post(new MessageEvent(false));
 
             }
         });

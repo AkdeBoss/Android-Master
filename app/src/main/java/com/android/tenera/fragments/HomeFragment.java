@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.tenera.R;
 import com.android.tenera.Utils.BadgedImageView;
@@ -17,7 +18,11 @@ import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
 import com.android.tenera.application.MainApplication;
+import com.android.tenera.model.MessageEvent;
 import com.shopify.buy.model.Collection;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ArrayList<String> collectionIdList = new ArrayList<>();
     private ViewPager mPagerContainer;
     private TabLayout mTabContainer;
-    private BadgedImageView cartIcon;
+    private TextView cartIcon;
+    private int mCartCount = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,8 +62,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mPagerContainer = (ViewPager) view.findViewById(R.id.page_container);
         mTabContainer = (TabLayout) view.findViewById(R.id.tab_container);
-        cartIcon = (BadgedImageView) view.findViewById(R.id.cart_icon);
-        cartIcon.setBadge("1", Color.parseColor("#ffbf00"));
+        cartIcon = (TextView) view.findViewById(R.id.cart_item_count);
+        mCartCount=0;
+        cartIcon.setText(""+mCartCount);
         MainActivity.getInstance().showLoader();
         fetchCollections();
 
@@ -105,5 +112,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onMessageEvent(MessageEvent event) {
+        if (event.isAdded) {
+            mCartCount++;
+        } else {
+            mCartCount--;
+        }
+        cartIcon.setText(""+mCartCount);
     }
 }
