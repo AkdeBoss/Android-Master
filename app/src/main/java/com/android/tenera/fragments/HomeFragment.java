@@ -16,6 +16,7 @@ import com.android.tenera.Utils.BadgedImageView;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
+import com.android.tenera.application.MainApplication;
 import com.shopify.buy.model.Collection;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mTabContainer = (TabLayout) view.findViewById(R.id.tab_container);
         cartIcon = (BadgedImageView) view.findViewById(R.id.cart_icon);
         cartIcon.setBadge("1", Color.parseColor("#ffbf00"));
+        MainActivity.getInstance().showLoader();
         fetchCollections();
 
 
@@ -64,7 +66,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void fetchCollections() {
-        MainActivity.getBuyInstance().getCollections(new Callback<List<Collection>>() {
+        MainApplication.getBuyInstance().getCollections(new Callback<List<Collection>>() {
             @Override
             public void success(List<Collection> collections, Response response) {
                 Log.e("", collections.toString());
@@ -81,11 +83,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 mPagerContainer.setAdapter(itemAdapter);
                 mTabContainer.setupWithViewPager(mPagerContainer);
                 mPagerContainer.setOffscreenPageLimit(Utils.getCollecionTitles().size());
+                MainActivity.getInstance().hideLoader();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("", MainActivity.getBuyInstance().getErrorBody(error));
+                Log.e("", MainApplication.getBuyInstance().getErrorBody(error));
+                MainActivity.getInstance().hideLoader();
 
             }
         });

@@ -18,7 +18,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_12"
         android:text="No Internet Connection!"
-        android:textColor="@color/color_8a2d2d2d"
+        android:textColor="@color/color_de2d2d2d"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold" />
 

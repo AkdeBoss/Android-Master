@@ -6,13 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.tenera.R;
+import com.android.tenera.fragments.CatalogFragment;
+import com.android.tenera.model.ProductDTO;
 import com.android.tenera.network.PicassoHelper;
 import com.shopify.buy.model.Product;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,13 +25,15 @@ import java.util.List;
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
     private final LayoutInflater mLayoutInflator;
-    private List<Product> mCatalogList;
+    private ArrayList<ProductDTO> mCatalogList;
     private Context mContext;
+    private CatalogFragment catalogFragment;
 
-    public CatalogAdapter(Context context, List<Product> catalogList) {
+    public CatalogAdapter(Context context, ArrayList<ProductDTO> catalogList, CatalogFragment fragment) {
         mLayoutInflator = LayoutInflater.from(context);
         mCatalogList = catalogList;
         mContext = context;
+        catalogFragment = fragment;
     }
 
     @Override
@@ -39,17 +45,50 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
 
     @Override
     public void onBindViewHolder(CatalogViewHolder holder, int position) {
-        Product model = mCatalogList.get(position);
+        final ProductDTO model = mCatalogList.get(position);
         holder.itemName.setText(model.getTitle());
-        PicassoHelper.getPicassoInstance(mContext).load(model.getImages().get(0).getSrc()).
+        PicassoHelper.getPicassoInstance(mContext).load(model.getImage()).
                 placeholder(R.drawable.logoplaceholder).
                 error(R.drawable.logoplaceholder).
                 into((holder.itemImage));
-        holder.itemGrossWeight.setText(""+model.getVariants().get(0).getGrams());
-        holder.itemPrice.setText(model.getVariants().get(0).getPrice());
-        holder.itemAdd.setVisibility(View.VISIBLE);
-        holder.itemQuantity.setText("0");
+        holder.itemGrossWeight.setText("" + model.getWeight());
+        holder.itemPrice.setText(model.getPrice());
+        holder.itemQuantity.setText("" + model.getQuantity());
+        if (model.getQuantity() == 0) {
+            holder.itemAdd.setVisibility(View.VISIBLE);
+            holder.itemQuantityLayout.setVisibility(View.GONE);
+        } else {
+            holder.itemAdd.setVisibility(View.GONE);
+            holder.itemQuantityLayout.setVisibility(View.VISIBLE);
+        }
+        holder.itemAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                catalogFragment.addCartItem(model.getVariant(), model.getQuantity() + 1);
+                model.setQuantity(model.getQuantity() + 1);
+                notifyDataSetChanged();
 
+            }
+        });
+
+        holder.itemQuantityPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                catalogFragment.addCartItem(model.getVariant(), model.getQuantity() + 1);
+                model.setQuantity(model.getQuantity() + 1);
+                notifyDataSetChanged();
+
+            }
+        });
+        holder.itemQuantityMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                catalogFragment.addCartItem(model.getVariant(), model.getQuantity() - 1);
+                model.setQuantity(model.getQuantity() - 1);
+                notifyDataSetChanged();
+
+            }
+        });
     }
 
 
@@ -65,8 +104,9 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
         private final TextView itemName;
         private final TextView itemGrossWeight;
         private final TextView itemPrice;
-        private final TextView itemAdd;
         private final TextView itemQuantity;
+        private final TextView itemAdd;
+        private final LinearLayout itemQuantityLayout;
         private final TextView itemQuantityMinus;
         private final TextView itemQuantityPlus;
 
@@ -78,6 +118,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
             itemPrice = (TextView) view.findViewById(R.id.catalog_item_prize);
             itemAdd = (TextView) view.findViewById(R.id.catalog_item_add);
             itemQuantity = (TextView) view.findViewById(R.id.catalog_item_quantity);
+            itemQuantityLayout = (LinearLayout) view.findViewById(R.id.quantity_layout);
             itemQuantityMinus = (TextView) view.findViewById(R.id.catalog_item_quantity_minus);
             itemQuantityPlus = (TextView) view.findViewById(R.id.catalog_item_quantity_plus);
         }
