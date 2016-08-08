@@ -60,7 +60,6 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
     public void addCartItem(ProductVariant variant, int quantity) {
         Cart cart = MainApplication.getCart();
-        MainApplication.addCartCount();
         if (quantity == 1) {
             cart.addVariant(variant);
         } else {
@@ -69,7 +68,6 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     }
 
     public void removeCartItem(ProductVariant variant, int quantity) {
-        MainApplication.subtractCartCount();
         Cart cart = MainApplication.getCart();
         if (quantity < 1) {
             cart.decrementVariant(variant);

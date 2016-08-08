@@ -64,11 +64,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         cartIcon = (TextView) view.findViewById(R.id.cart_item_count);
         cartArrow=(ImageView)view.findViewById(R.id.left_arrow);
         cartArrow.setOnClickListener(this);
-        cartIcon.setText("" + MainApplication.getCartCount());
+        cartIcon.setText("" + MainApplication.getCart().getSize());
         MainActivity.getInstance().showLoader();
-        fetchCollections();
-
-
         return view;
     }
 
@@ -76,6 +73,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         MainApplication.getBuyInstance().getCollections(new Callback<List<Collection>>() {
             @Override
             public void success(List<Collection> collections, Response response) {
+                tabsList.clear();
+                collectionIdList.clear();
                 Log.e("", collections.toString());
                 for (int i = 0; i < collections.size(); i++) {
                     Collection collection = collections.get(i);
@@ -133,16 +132,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-
+        fetchCollections();
+        cartIcon.setText("" + MainApplication.getCart().getSize());
     }
 
     @Subscribe
     public void onMessageEvent(MessageEvent event) {
-        if (event.isAdded) {
-            MainApplication.addCartCount();
-        } else {
-            MainApplication.subtractCartCount();
-        }
-        cartIcon.setText("" + MainApplication.getCartCount());
+        cartIcon.setText("" + MainApplication.getCart().getSize());
     }
 }
