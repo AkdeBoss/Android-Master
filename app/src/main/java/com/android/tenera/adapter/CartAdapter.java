@@ -52,11 +52,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 //                into((holder.itemImage));
         holder.itemGrossWeight.setText("" + model.getVariant().getGrams());
         holder.itemPrice.setText(model.getLinePrice());
-        holder.itemQuantity.setText(""+model.getQuantity());
+        holder.itemQuantity.setText("" + model.getQuantity());
         holder.itemQuantityPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartFragment.addCartItem(model.getVariant(),Integer.parseInt(""+model.getQuantity()));
+                cartFragment.addCartItem(model.getVariant(), Integer.parseInt("" + (model.getQuantity() + 1)));
                 notifyDataSetChanged();
 
             }
@@ -64,7 +64,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.itemQuantityMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartFragment.addCartItem(model.getVariant(),Integer.parseInt(""+model.getQuantity()));
+                cartFragment.removeCartItem(model.getVariant(), Integer.parseInt("" + (model.getQuantity() - 1)));
                 notifyDataSetChanged();
 
             }

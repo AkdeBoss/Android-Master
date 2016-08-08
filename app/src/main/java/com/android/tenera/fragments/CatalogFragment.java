@@ -17,6 +17,7 @@ import com.android.tenera.adapter.CatalogAdapter;
 import com.android.tenera.application.MainApplication;
 import com.android.tenera.model.ProductDTO;
 import com.shopify.buy.model.Cart;
+import com.shopify.buy.model.CartLineItem;
 import com.shopify.buy.model.Product;
 import com.shopify.buy.model.ProductVariant;
 
@@ -34,6 +35,7 @@ public class CatalogFragment extends Fragment {
 
     private int index;
     private RecyclerView mCatalogList;
+    private ArrayList<ProductDTO> list;
 
     @Nullable
     @Override
@@ -53,17 +55,15 @@ public class CatalogFragment extends Fragment {
             @Override
             public void success(List<Product> products, Response response) {
                 // Add code to save Products and update display here
-                ArrayList<ProductDTO> list = new ArrayList<>();
+                list = new ArrayList<>();
 
-                for (Product model : products){
+                for (Product model : products) {
                     ProductDTO item = new ProductDTO(model);
                     list.add(item);
                 }
                 Utils.getMenuItems().add(list);
 
-                mCatalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), list, CatalogFragment.this));
-                MainActivity.getInstance().hideLoader();
-
+                setList();
             }
 
             @Override
@@ -78,6 +78,20 @@ public class CatalogFragment extends Fragment {
 
     }
 
+    private void setList() {
+        List<CartLineItem> products = MainApplication.getCart().getLineItems();
+        if (products != null && products.size() != 0 && list != null && list.size() != 0) {
+            for (int i = 0; i < products.size(); i++) {
+                for (ProductDTO productDTO : list) {
+                    if (products.get(i).getVariant().getProductId() == productDTO.getVariant().getProductId()) {
+                        productDTO.setQuantity((int) products.get(i).getQuantity());
+                    }
+                }
+            }
+        }
+        mCatalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), list, CatalogFragment.this));
+        MainActivity.getInstance().hideLoader();
+    }
 
     public int getIndex() {
         return index;
@@ -105,4 +119,11 @@ public class CatalogFragment extends Fragment {
             cart.setVariantQuantity(variant, quantity);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
 }

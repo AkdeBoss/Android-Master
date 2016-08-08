@@ -89,7 +89,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
         holder.itemQuantityMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                catalogFragment.addCartItem(model.getVariant(), model.getQuantity() - 1);
+                catalogFragment.removeCartItem(model.getVariant(), model.getQuantity() - 1);
                 model.setQuantity(model.getQuantity() - 1);
                 notifyItemChanged(position);
                 EventBus.getDefault().post(new MessageEvent(false));

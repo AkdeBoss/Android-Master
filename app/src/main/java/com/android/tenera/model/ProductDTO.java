@@ -72,4 +72,14 @@ public class ProductDTO extends Product {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ProductDTO that = (ProductDTO) o;
+
+            return variant.equals(that.variant);
+
+        }
 }

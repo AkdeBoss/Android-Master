@@ -1,7 +1,6 @@
 package com.android.tenera.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -10,10 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tenera.R;
-import com.android.tenera.Utils.BadgedImageView;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
@@ -42,7 +41,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ViewPager mPagerContainer;
     private TabLayout mTabContainer;
     private TextView cartIcon;
-    private int mCartCount = 0;
+    private ImageView cartArrow;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -63,8 +62,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mPagerContainer = (ViewPager) view.findViewById(R.id.page_container);
         mTabContainer = (TabLayout) view.findViewById(R.id.tab_container);
         cartIcon = (TextView) view.findViewById(R.id.cart_item_count);
-        mCartCount=0;
-        cartIcon.setText(""+mCartCount);
+        cartArrow=(ImageView)view.findViewById(R.id.left_arrow);
+        cartArrow.setOnClickListener(this);
+        cartIcon.setText("" + MainApplication.getCartCount());
         MainActivity.getInstance().showLoader();
         fetchCollections();
 
@@ -111,7 +111,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.left_arrow:
+                ((MainActivity)getActivity()).replaceFragmentWithBackStack(new CartFragment());
+                break;
+        }
     }
 
     @Override
@@ -126,13 +130,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onStop();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     @Subscribe
     public void onMessageEvent(MessageEvent event) {
         if (event.isAdded) {
-            mCartCount++;
+            MainApplication.addCartCount();
         } else {
-            mCartCount--;
+            MainApplication.subtractCartCount();
         }
-        cartIcon.setText(""+mCartCount);
+        cartIcon.setText("" + MainApplication.getCartCount());
     }
 }

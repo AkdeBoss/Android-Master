@@ -13,6 +13,7 @@ public class MainApplication extends Application {
     private static MainApplication instance;
     private static BuyClient buyInstance;
     private static Cart cart;
+    private static int cartCount;
     // Constants
     public static final String BUY_CLIENT_SHOP = "meatro.myshopify.com";
     public static final String BUY_CLIENT_API_KEY = "c3875e253fe6f666d09f9f037802bd0a";
@@ -23,15 +24,20 @@ public class MainApplication extends Application {
         return instance;
     }
 
+    public static int getCartCount() {
+        return cartCount;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
         buyInstance = newInstance();
+        cartCount = 0;
     }
 
     public static BuyClient getBuyInstance() {
-        if (buyInstance == null){
+        if (buyInstance == null) {
             buyInstance = newInstance();
         }
         return buyInstance;
@@ -48,10 +54,19 @@ public class MainApplication extends Application {
         }
         return buyInstance;
     }
+
     public static Cart getCart() {
         if (cart == null) {
             cart = new Cart();
         }
         return cart;
+    }
+
+    public static void addCartCount() {
+        cartCount++;
+    }
+
+    public static void subtractCartCount() {
+        cartCount--;
     }
 }
