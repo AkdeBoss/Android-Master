@@ -6,12 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.tenera.R;
+import com.android.tenera.application.MainApplication;
 import com.android.tenera.fragments.CartFragment;
 import com.android.tenera.fragments.HomeFragment;
 import com.shopify.buy.dataprovider.BuyClient;
@@ -220,11 +223,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /*
+    * @param errorMessage
+    */
+    public void onError(String errorMessage) {
+        hideLoader();
+        Log.e("Error: " , " " + errorMessage);
+        Toast.makeText(this, "Error: " , Toast.LENGTH_LONG).show();
+        finish();
+    }
+
     public boolean isPreviousPresent() {
         if (mPreviousSelectedDrawerImage == null && mPreviousSelectedDrawerText == null) {
             return false;
         } else {
             return true;
         }
+    }
+
+    public MainApplication getMainApplication() {
+        return (MainApplication) getApplication();
     }
 }

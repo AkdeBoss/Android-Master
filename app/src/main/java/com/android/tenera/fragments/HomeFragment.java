@@ -128,11 +128,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Subscribe
     public void onMessageEvent(MessageEvent event) {
-        if (event.isAdded) {
-            mCartCount++;
-        } else {
-            mCartCount--;
-        }
-        cartIcon.setText(""+mCartCount);
+
+        cartIcon.setText(""+MainApplication.getCart().getSize());
     }
 }

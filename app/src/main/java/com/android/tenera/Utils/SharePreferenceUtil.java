@@ -5,11 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.android.tenera.activity.MainActivity;
 import com.android.tenera.application.MainApplication;
 
 public class SharePreferenceUtil {
 
-    private Context applicationContext = MainApplication.getInstance().getApplicationContext();
+    private Context applicationContext = MainActivity.getInstance().getApplication();
     private SharedPreferences sharedPreferences = getSharedPreferences();
 
     public SharedPreferences getSharedPreferences() {

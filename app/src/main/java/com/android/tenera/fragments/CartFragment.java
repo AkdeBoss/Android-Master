@@ -19,12 +19,15 @@ import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CartAdapter;
 import com.android.tenera.application.MainApplication;
+import com.shopify.buy.dataprovider.BuyClient;
 import com.shopify.buy.model.Cart;
 import com.shopify.buy.model.CartLineItem;
 import com.shopify.buy.model.Checkout;
 import com.shopify.buy.model.LineItem;
 import com.shopify.buy.model.Product;
 import com.shopify.buy.model.ProductVariant;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -51,34 +54,57 @@ public class CartFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         totalCost = (TextView) view.findViewById(R.id.total_cost);
-
-        List<CartLineItem> products = MainApplication.getCart().getLineItems();
-
-        Checkout checkout = new Checkout(MainApplication.getCart());
-
-        totalCost.setText(checkout.getPaymentDue());
-        recyclerView.setAdapter(new CartAdapter(MainActivity.getInstance(), products, CartFragment.this));
+        MainActivity.getInstance().showLoader();
+        createCheckout();
 
 
         return view;
     }
 
+    private void createCheckout() {
+        MainActivity.getInstance().getMainApplication().createCheckout(new Callback<Checkout>() {
+            @Override
+            public void success(Checkout checkout, Response response) {
+                MainActivity.getInstance().hideLoader();
+                onCheckoutCreated(checkout);
+            }
 
-    public void addCartItem(ProductVariant variant, int quantity) {
-        Cart cart = MainApplication.getCart();
-        if (quantity == 1) {
-            cart.addVariant(variant);
-        } else {
-            cart.setVariantQuantity(variant, quantity);
-        }
+            @Override
+            public void failure(RetrofitError error) {
+                MainActivity.getInstance().onError(BuyClient.getErrorBody(error));
+            }
+        });
     }
 
-    public void removeCartItem(ProductVariant variant, int quantity) {
-        Cart cart = MainApplication.getCart();
-        if (quantity < 1) {
-            cart.decrementVariant(variant);
-        } else {
-            cart.setVariantQuantity(variant, quantity);
-        }
+    private void onCheckoutCreated(Checkout checkout) {
+        recyclerView.setAdapter(new CartAdapter(MainActivity.getInstance(), checkout.getLineItems(), CartFragment.this));
+
+        totalCost.setText(checkout.getPaymentDue());
     }
+
+
+    public void addCartItem(LineItem item) {
+        Cart cart = MainApplication.getCart();
+        cart.addVariant(cart.getProductVariant(item));
+        createCheckout();
+    }
+
+    public void removeCartItem(LineItem item) {
+        Cart cart = MainApplication.getCart();
+        cart.decrementVariant(cart.getProductVariant(item));
+        createCheckout();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
 }

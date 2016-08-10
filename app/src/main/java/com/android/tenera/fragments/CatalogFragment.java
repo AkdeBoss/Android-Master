@@ -55,7 +55,7 @@ public class CatalogFragment extends Fragment {
                 // Add code to save Products and update display here
                 ArrayList<ProductDTO> list = new ArrayList<>();
 
-                for (Product model : products){
+                for (Product model : products) {
                     ProductDTO item = new ProductDTO(model);
                     list.add(item);
                 }
@@ -88,21 +88,15 @@ public class CatalogFragment extends Fragment {
     }
 
 
-    public void addCartItem(ProductVariant variant, int quantity) {
+    public void addCartItem(ProductVariant variant) {
         Cart cart = MainApplication.getCart();
-        if (quantity == 1) {
-            cart.addVariant(variant);
-        } else {
-            cart.setVariantQuantity(variant, quantity);
-        }
+        cart.addVariant(variant);
+
     }
 
-    public void removeCartItem(ProductVariant variant, int quantity) {
+    public void removeCartItem(ProductVariant variant) {
         Cart cart = MainApplication.getCart();
-        if (quantity < 1) {
-            cart.decrementVariant(variant);
-        } else {
-            cart.setVariantQuantity(variant, quantity);
-        }
+        cart.decrementVariant(variant);
+
     }
 }
