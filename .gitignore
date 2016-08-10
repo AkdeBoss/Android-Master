@@ -18,3 +18,5 @@ build/intermediates/dex-cache/cache.xml
 *.bin
 
 .gradle/2.10/taskArtifacts/outputFileStates.bin
+
+

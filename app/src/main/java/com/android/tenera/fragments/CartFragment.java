@@ -4,18 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tenera.R;
 import com.android.tenera.Utils.DividerItemDecoration;
-import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CartAdapter;
 import com.android.tenera.application.MainApplication;
@@ -24,7 +22,6 @@ import com.shopify.buy.model.Cart;
 import com.shopify.buy.model.CartLineItem;
 import com.shopify.buy.model.Checkout;
 import com.shopify.buy.model.LineItem;
-import com.shopify.buy.model.Product;
 import com.shopify.buy.model.ProductVariant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,15 +35,17 @@ import retrofit.client.Response;
 /**
  * Created by raghavendra on 11/07/16.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private TextView totalCost;
+    private ImageView checkoutArrow;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        checkoutArrow = (ImageView) view.findViewById(R.id.left_arrow);
         recyclerView = (RecyclerView) view.findViewById(R.id.catalog_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(
@@ -78,6 +77,8 @@ public class CartFragment extends Fragment {
 
     private void onCheckoutCreated(Checkout checkout) {
         recyclerView.setAdapter(new CartAdapter(MainActivity.getInstance(), checkout.getLineItems(), CartFragment.this));
+        totalCost.setText(checkout.getPaymentDue());
+        checkoutArrow.setOnClickListener(this);
 
         totalCost.setText(checkout.getPaymentDue());
     }
@@ -107,4 +108,11 @@ public class CartFragment extends Fragment {
         super.onStop();
     }
 
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.left_arrow:
+                ((MainActivity) getActivity()).replaceFragmentWithBackStack(new CheckoutFragment());
+                break;
+        }
+    }
 }

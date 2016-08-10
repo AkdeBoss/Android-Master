@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
-    private void replaceFragmentWithBackStack(Fragment fragment) {
+    public void replaceFragmentWithBackStack(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.getTag()).commit();
     }
 
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.nav_cart:
                 CartFragment cartFragment = new CartFragment();
-                replaceFragment(cartFragment);
+                replaceFragmentWithBackStack(cartFragment);
                 if (isPreviousPresent()) {
                     mPreviousSelectedDrawerText.setTextColor(getResources().getColor(R.color.color_de2d2d2d));
                     mPreviousSelectedDrawerImage.setSelected(false);
