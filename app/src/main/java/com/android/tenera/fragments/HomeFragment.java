@@ -1,7 +1,6 @@
 package com.android.tenera.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tenera.R;
-import com.android.tenera.Utils.BadgedImageView;
 import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CustomPagerAdapter;
@@ -66,7 +64,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         cartIcon = (TextView) view.findViewById(R.id.cart_item_count);
         cartArrow=(ImageView)view.findViewById(R.id.left_arrow);
         cartArrow.setOnClickListener(this);
-        cartIcon.setText("" + MainApplication.getCart().getSize());
         MainActivity.getInstance().showLoader();
         fetchCollections();
 
@@ -78,22 +75,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         MainApplication.getBuyInstance().getCollections(new Callback<List<Collection>>() {
             @Override
             public void success(List<Collection> collections, Response response) {
-                tabsList.clear();
-                collectionIdList.clear();
-                Log.e("", collections.toString());
-                for (int i = 0; i < collections.size(); i++) {
-                    Collection collection = collections.get(i);
-                    tabsList.add(collection.getTitle());
-                    collectionIdList.add(collection.getCollectionId());
+                try {
+                    tabsList.clear();
+                    collectionIdList.clear();
+                    Log.e("", collections.toString());
+                    for (int i = 0; i < collections.size(); i++) {
+                        Collection collection = collections.get(i);
+                        tabsList.add(collection.getTitle());
+                        collectionIdList.add(collection.getCollectionId());
+                    }
+                    Utils.setCollecionTitles(tabsList);
+                    Utils.setCollectionIds(collectionIdList);
+                    itemAdapter = new CustomPagerAdapter(getChildFragmentManager(), MainActivity.getInstance(), tabsList);
+                    mPagerContainer.setAdapter(itemAdapter);
+                    mTabContainer.setupWithViewPager(mPagerContainer);
+                    mPagerContainer.setOffscreenPageLimit(Utils.getCollecionTitles().size());
+                    MainActivity.getInstance().hideLoader();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                Utils.setCollecionTitles(tabsList);
-                Utils.setCollectionIds(collectionIdList);
-                itemAdapter = new CustomPagerAdapter(getChildFragmentManager(), MainActivity.getInstance(), tabsList);
-                mPagerContainer.setAdapter(itemAdapter);
-                mTabContainer.setupWithViewPager(mPagerContainer);
-                mPagerContainer.setOffscreenPageLimit(Utils.getCollecionTitles().size());
-                MainActivity.getInstance().hideLoader();
             }
+
             @Override
             public void failure(RetrofitError error) {
                 Log.e("", MainApplication.getBuyInstance().getErrorBody(error));
@@ -111,9 +113,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.left_arrow:
-                ((MainActivity)getActivity()).replaceFragmentWithBackStack(new CartFragment());
+                ((MainActivity) getActivity()).replaceFragmentWithBackStack(new CartFragment());
                 break;
         }
     }
@@ -139,6 +141,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Subscribe
     public void onMessageEvent(MessageEvent event) {
-        cartIcon.setText(""+MainApplication.getCart().getSize());
+        cartIcon.setText("" + MainApplication.getCart().getSize());
     }
 }

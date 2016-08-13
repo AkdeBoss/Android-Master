@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tenera.R;
@@ -19,14 +20,10 @@ import com.android.tenera.adapter.CartAdapter;
 import com.android.tenera.application.MainApplication;
 import com.shopify.buy.dataprovider.BuyClient;
 import com.shopify.buy.model.Cart;
-import com.shopify.buy.model.CartLineItem;
 import com.shopify.buy.model.Checkout;
 import com.shopify.buy.model.LineItem;
-import com.shopify.buy.model.ProductVariant;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -39,6 +36,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private TextView totalCost;
     private ImageView checkoutArrow;
+    private RelativeLayout checkoutLayout;
+    private TextView cartAmount;
 
     @Nullable
     @Override
@@ -47,11 +46,13 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
         checkoutArrow = (ImageView) view.findViewById(R.id.left_arrow);
         recyclerView = (RecyclerView) view.findViewById(R.id.catalog_list);
+        checkoutLayout = (RelativeLayout) view.findViewById(R.id.bottom_layout);
+        checkoutLayout.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(getActivity(), null));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
+        cartAmount=(TextView)view.findViewById(R.id.cart_ammuont);
         totalCost = (TextView) view.findViewById(R.id.total_cost);
         MainActivity.getInstance().showLoader();
         createCheckout();
@@ -79,7 +80,12 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(new CartAdapter(MainActivity.getInstance(), checkout.getLineItems(), CartFragment.this));
         totalCost.setText(checkout.getPaymentDue());
         checkoutArrow.setOnClickListener(this);
-
+        if (MainApplication.getCart().getSize() < 1) {
+            checkoutLayout.setVisibility(View.GONE);
+        } else {
+            checkoutLayout.setVisibility(View.VISIBLE);
+            cartAmount.setText(checkout.getPaymentDue());
+        }
         totalCost.setText(checkout.getPaymentDue());
     }
 
@@ -96,7 +102,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         createCheckout();
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
@@ -106,7 +112,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
-    }
+    }*/
 
     public void onClick(View view) {
         switch (view.getId()) {

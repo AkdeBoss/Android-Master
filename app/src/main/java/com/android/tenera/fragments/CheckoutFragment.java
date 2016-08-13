@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.android.tenera.R;
+import com.android.tenera.activity.MainActivity;
 
 /**
  * Created by raghavendra on 11/07/16.
@@ -55,6 +56,8 @@ public class CheckoutFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.left_arrow:
+                PaymentInfoFragment paymentInfoFragment=new PaymentInfoFragment();
+                ((MainActivity)getActivity()).replaceFragmentWithBackStack(paymentInfoFragment);
                 break;
         }
     }

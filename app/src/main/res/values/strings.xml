@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="payment_information">Payment information</string>
+    <string name="place_order">Place order</string>
+    <string name="proceed_to_pay">Proceed to pay</string>
 </resources>

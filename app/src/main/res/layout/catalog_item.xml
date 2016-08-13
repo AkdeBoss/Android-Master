@@ -12,10 +12,8 @@
 
         <ImageView
             android:id="@+id/catalog_item_image"
-            android:layout_width="162dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:scaleType="fitCenter"
             android:src="@drawable/logoplaceholder" />
 
         <TextView

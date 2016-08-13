@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee"
@@ -26,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
             android:layout_toRightOf="@+id/btn_side_pane"
-            android:text="Checkout"
+            android:text="@string/payment_information"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -37,7 +36,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/ic_menu" />
+            android:rotation="270"
+            android:src="@android:drawable/ic_menu_call" />
     </RelativeLayout>
 
     <TextView
@@ -220,6 +220,7 @@
             android:layout_marginTop="7dp"
             android:background="#e8e9eb" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -233,7 +234,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/spacing_16dp"
             android:layout_marginRight="16dp"
-            android:text="Proceed to checkout"
+            android:text="@string/place_order"
             android:textColor="#ffffff"
             android:textSize="@dimen/sp_16" />
 
@@ -244,7 +245,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:layout_toStartOf="@+id/left_arrow"
-            android:text="123"
             android:textColor="#ffffff"
             android:textSize="16sp" />
 

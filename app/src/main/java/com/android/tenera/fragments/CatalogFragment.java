@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,7 @@ public class CatalogFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("", MainApplication.getBuyInstance().getErrorBody(error));
+//                Log.e("", MainApplication.getBuyInstance().getErrorBody(error));
                 MainActivity.getInstance().hideLoader();
 
                 // Handle errors here
@@ -89,6 +90,8 @@ public class CatalogFragment extends Fragment {
                 }
             }
         }
+        ((SimpleItemAnimator) mCatalogList.getItemAnimator()).setSupportsChangeAnimations(false);
+
         mCatalogList.setAdapter(new CatalogAdapter(MainActivity.getInstance(), list, CatalogFragment.this));
         MainActivity.getInstance().hideLoader();
     }

@@ -37,6 +37,16 @@
                     android:text="Cart"
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/btn_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:rotation="270"
+                    android:src="@android:drawable/ic_menu_call" />
             </RelativeLayout>
 
             <TextView
@@ -135,6 +145,7 @@
     </ScrollView>
 
     <RelativeLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
@@ -170,7 +181,5 @@
             android:background="#10a151"
             android:padding="@dimen/dp_16"
             android:src="@drawable/leftarrow" />
-
-
     </RelativeLayout>
 </RelativeLayout>
