@@ -19,6 +19,7 @@ import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CartAdapter;
 import com.android.tenera.application.MainApplication;
 import com.shopify.buy.dataprovider.BuyClient;
+import com.shopify.buy.dataprovider.BuyClientError;
 import com.shopify.buy.model.Cart;
 import com.shopify.buy.model.Checkout;
 import com.shopify.buy.model.LineItem;
@@ -52,7 +53,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(getActivity(), null));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        cartAmount=(TextView)view.findViewById(R.id.cart_ammuont);
+        cartAmount = (TextView) view.findViewById(R.id.cart_ammuont);
         totalCost = (TextView) view.findViewById(R.id.total_cost);
         MainActivity.getInstance().showLoader();
         createCheckout();
@@ -62,7 +63,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     }
 
     private void createCheckout() {
-        MainActivity.getInstance().getMainApplication().createCheckout(new Callback<Checkout>() {
+        MainActivity.getInstance().getMainApplication().updateCheckout(new Callback<Checkout>() {
             @Override
             public void success(Checkout checkout, Response response) {
                 MainActivity.getInstance().hideLoader();
@@ -71,10 +72,12 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void failure(RetrofitError error) {
-                MainActivity.getInstance().onError(BuyClient.getErrorBody(error));
-            }
-        });
-    }
+
+
+            }}
+
+            );
+        }
 
     private void onCheckoutCreated(Checkout checkout) {
         recyclerView.setAdapter(new CartAdapter(MainActivity.getInstance(), checkout.getLineItems(), CartFragment.this));

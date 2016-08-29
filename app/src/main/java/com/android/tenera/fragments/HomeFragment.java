@@ -72,7 +72,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void fetchCollections() {
-        MainApplication.getBuyInstance().getCollections(new Callback<List<Collection>>() {
+        MainApplication.getBuyClient().getCollections(new Callback<List<Collection>>() {
             @Override
             public void success(List<Collection> collections, Response response) {
                 try {
@@ -82,7 +82,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     for (int i = 0; i < collections.size(); i++) {
                         Collection collection = collections.get(i);
                         tabsList.add(collection.getTitle());
-                        collectionIdList.add(collection.getCollectionId());
+                        collectionIdList.add(""+collection.getCollectionId());
                     }
                     Utils.setCollecionTitles(tabsList);
                     Utils.setCollectionIds(collectionIdList);

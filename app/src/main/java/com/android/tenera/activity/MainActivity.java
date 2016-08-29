@@ -17,8 +17,6 @@ import com.android.tenera.R;
 import com.android.tenera.application.MainApplication;
 import com.android.tenera.fragments.CartFragment;
 import com.android.tenera.fragments.HomeFragment;
-import com.shopify.buy.dataprovider.BuyClient;
-import com.shopify.buy.dataprovider.BuyClientFactory;
 import com.shopify.buy.model.Cart;
 import com.shopify.buy.model.Checkout;
 
