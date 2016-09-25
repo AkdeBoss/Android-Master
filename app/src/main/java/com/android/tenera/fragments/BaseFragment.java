@@ -9,4 +9,6 @@ public class BaseFragment extends Fragment {
 
         void onFailure(Throwable error);
     }
+
+    public boolean isFetching = false;
 }

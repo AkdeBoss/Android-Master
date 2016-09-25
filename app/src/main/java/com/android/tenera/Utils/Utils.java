@@ -1,11 +1,9 @@
 package com.android.tenera.Utils;
 
 import com.android.tenera.model.ProductDTO;
-import com.shopify.buy.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by raghavendra on 09/07/16.
@@ -15,7 +13,6 @@ public class Utils {
     private static ArrayList<List<ProductDTO>> menuItems;
     private static ArrayList<String> collecionTitles;
     private static ArrayList<String> collectionIds;
-
 
 
     public static ArrayList<String> getCollectionIds() {
@@ -40,6 +37,10 @@ public class Utils {
             menuItems = new ArrayList<>();
         }
         return menuItems;
+    }
+
+    public static String addRuppeSymbol(String value) {
+        return "\u20B9 " + value;
     }
 
 }

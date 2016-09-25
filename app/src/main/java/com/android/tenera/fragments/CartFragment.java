@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.android.tenera.R;
 import com.android.tenera.Utils.DividerItemDecoration;
+import com.android.tenera.Utils.Utils;
 import com.android.tenera.activity.MainActivity;
 import com.android.tenera.adapter.CartAdapter;
 import com.android.tenera.application.MainApplication;
@@ -81,15 +82,15 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
     private void onCheckoutCreated(Checkout checkout) {
         recyclerView.setAdapter(new CartAdapter(MainActivity.getInstance(), checkout.getLineItems(), CartFragment.this));
-        totalCost.setText(checkout.getPaymentDue());
+        totalCost.setText(Utils.addRuppeSymbol(checkout.getPaymentDue()));
         checkoutArrow.setOnClickListener(this);
         if (MainApplication.getCart().getSize() < 1) {
             checkoutLayout.setVisibility(View.GONE);
         } else {
             checkoutLayout.setVisibility(View.VISIBLE);
-            cartAmount.setText(checkout.getPaymentDue());
+            cartAmount.setText(Utils.addRuppeSymbol(checkout.getPaymentDue()));
         }
-        totalCost.setText(checkout.getPaymentDue());
+        totalCost.setText(Utils.addRuppeSymbol(checkout.getPaymentDue()));
     }
 
 

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class CatalogFragment extends Fragment {
 
         mCatalogList = (RecyclerView) view.findViewById(R.id.catalog_list);
         mCatalogList.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        MainActivity.getInstance().showLoader();
         fetchProductsByCollectionId(Utils.getCollectionIds().get(getIndex()));
         return view;
     }
@@ -54,17 +52,24 @@ public class CatalogFragment extends Fragment {
         MainApplication.getBuyInstance().getProducts(1, id, new Callback<List<Product>>() {
 
             @Override
-            public void success(List<Product> products, Response response) {
-                // Add code to save Products and update display here
-                list = new ArrayList<>();
+            public void success(final List<Product> products, Response response) {
+                MainActivity.getInstance().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                for (Product model : products) {
-                    ProductDTO item = new ProductDTO(model);
-                    list.add(item);
-                }
-                Utils.getMenuItems().add(list);
 
-                setList();
+                        // Add code to save Products and update display here
+                        list = new ArrayList<>();
+
+                        for (Product model : products) {
+                            ProductDTO item = new ProductDTO(model);
+                            list.add(item);
+                        }
+                        Utils.getMenuItems().add(list);
+
+                        setList();
+                    }
+                });
             }
 
             @Override

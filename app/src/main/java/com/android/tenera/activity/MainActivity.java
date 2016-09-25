@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,9 +17,10 @@ import android.widget.Toast;
 import com.android.tenera.R;
 import com.android.tenera.application.MainApplication;
 import com.android.tenera.fragments.CartFragment;
-import com.android.tenera.fragments.HomeFragment;
+
 import com.shopify.buy.model.Cart;
 import com.shopify.buy.model.Checkout;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mNavInviteFriend;
     private ImageView mNavAbout;
     private ImageView mNavSupport;
+    private DrawerLayout drawerLayout;
     private RelativeLayout progressLayout;
 
 
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNavInviteFriend = (ImageView) navigationView.findViewById(R.id.nav_invite_friend);
         mNavAbout = (ImageView) navigationView.findViewById(R.id.nav_about);
         mNavSupport = (ImageView) navigationView.findViewById(R.id.nav_support);
-
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavHome.setOnClickListener(this);
         mNavExploreCategories.setOnClickListener(this);
         mNavCart.setOnClickListener(this);
@@ -149,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextHome.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImageHome;
                 mPreviousSelectedDrawerText = mTextHome;
+                closeDrawer();
                 break;
             case R.id.nav_explore_categories:
                 if (isPreviousPresent()) {
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextExploreCategories.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImageExploreCategories;
                 mPreviousSelectedDrawerText = mTextExploreCategories;
+                closeDrawer();
                 break;
             case R.id.nav_cart:
                 CartFragment cartFragment = new CartFragment();
@@ -171,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextCart.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImageCart;
                 mPreviousSelectedDrawerText = mTextCart;
+                closeDrawer();
                 break;
             case R.id.nav_promotional_offer:
                 loadHomeFragment();
@@ -182,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextPromotionalOffer.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImagePromotionalOffer;
                 mPreviousSelectedDrawerText = mTextPromotionalOffer;
+                closeDrawer();
                 break;
             case R.id.nav_invite_friend:
                 loadHomeFragment();
@@ -193,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextInviteFriend.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImageInviteFriend;
                 mPreviousSelectedDrawerText = mTextInviteFriend;
+                closeDrawer();
                 break;
             case R.id.nav_about:
                 loadHomeFragment();
@@ -204,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextAbout.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImageAbout;
                 mPreviousSelectedDrawerText = mTextAbout;
+                closeDrawer();
                 break;
             case R.id.nav_support:
                 loadHomeFragment();
@@ -215,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTextSupport.setTextColor(getResources().getColor(R.color.color_ffbf00));
                 mPreviousSelectedDrawerImage = mImageSupport;
                 mPreviousSelectedDrawerText = mTextSupport;
+                closeDrawer();
                 break;
             default:
                 break;
@@ -226,8 +236,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     */
     public void onError(String errorMessage) {
         hideLoader();
-        Log.e("Error: " , " " + errorMessage);
-        Toast.makeText(this, "Error: " , Toast.LENGTH_LONG).show();
+        Log.e("Error: ", " " + errorMessage);
+        Toast.makeText(this, "Error: ", Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -241,5 +251,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public MainApplication getMainApplication() {
         return (MainApplication) getApplication();
+    }
+
+    public void closeDrawer() {
+        if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            drawerLayout.closeDrawer(Gravity.LEFT);
+        }
     }
 }

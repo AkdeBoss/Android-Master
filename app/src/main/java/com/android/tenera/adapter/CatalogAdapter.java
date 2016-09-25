@@ -10,17 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.tenera.R;
+import com.android.tenera.Utils.Utils;
 import com.android.tenera.fragments.CatalogFragment;
 import com.android.tenera.model.MessageEvent;
 import com.android.tenera.model.ProductDTO;
 import com.android.tenera.network.PicassoHelper;
-import com.shopify.buy.model.Product;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by raghavendra on 16/07/16.
@@ -55,7 +53,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
                 error(R.drawable.logoplaceholder).
                 into((holder.itemImage));
         holder.itemGrossWeight.setText("" + model.getWeight());
-        holder.itemPrice.setText(model.getPrice());
+        holder.itemPrice.setText(Utils.addRuppeSymbol(String.valueOf(model.getPrice())));
         holder.itemQuantity.setText("" + model.getQuantity());
         if (model.getQuantity() == 0) {
             holder.itemAdd.setVisibility(View.VISIBLE);

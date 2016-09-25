@@ -1,7 +1,6 @@
 package com.android.tenera.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tenera.R;
-import com.android.tenera.activity.MainActivity;
-import com.android.tenera.application.MainApplication;
+import com.android.tenera.Utils.Utils;
 import com.android.tenera.fragments.CartFragment;
-import com.android.tenera.model.ProductDTO;
-import com.android.tenera.network.PicassoHelper;
-import com.shopify.buy.model.Cart;
-import com.shopify.buy.model.CartLineItem;
 import com.shopify.buy.model.LineItem;
-import com.shopify.buy.model.Product;
 
 import java.util.List;
 
@@ -57,8 +50,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 //                error(R.drawable.logoplaceholder).
 //                into((holder.itemImage));
         holder.itemGrossWeight.setText("" + model.getGrams());
-        holder.itemPrice.setText(model.getLinePrice());
-        holder.itemPriceDesc.setText("" + model.getQuantity()+" X "+model.getPrice());
+        holder.itemPrice.setText(Utils.addRuppeSymbol(model.getLinePrice()));
+        holder.itemPriceDesc.setText("" + model.getQuantity() + " X " + model.getPrice());
 
         holder.itemQuantity.setText("" + model.getQuantity());
         holder.itemQuantityPlus.setOnClickListener(new View.OnClickListener() {

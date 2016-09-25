@@ -39,6 +39,7 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="#ffbf00"
         app:tabIndicatorHeight="3dp"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="#de2d2d2d"
         app:tabTextColor="#992d2d2d" />
 
@@ -46,6 +47,7 @@
         android:id="@+id/page_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/tab_container" />
 
